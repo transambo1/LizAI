@@ -1,0 +1,90 @@
+/* 1. SỬA LỖI AUTOFILL */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+/* 2. CẤU HÌNH CHUNG */
+::ng-deep .custom-mat-input .mdc-text-field--outlined {
+  background-color: white !important;
+  height: 54px !important;
+  width: 300px;
+}
+
+
+/* Mảnh đầu (Bên trái): Chỉ bo góc trái */
+::ng-deep .custom-mat-input .mdc-notched-outline__leading {
+  border-radius: 12px 0 0 12px !important; 
+  width: 12px !important; 
+  border-right: none !important; 
+  border-color: #e5e7eb !important;
+}
+
+/* Mảnh giữa: Không bo góc */
+::ng-deep .custom-mat-input .mdc-notched-outline__notch {
+  border-color: #e5e7eb !important;
+  border-right: none !important;
+  border-left: none !important;
+}
+
+/* Mảnh cuối (Bên phải): Chỉ bo góc phải */
+::ng-deep .custom-mat-input .mdc-notched-outline__trailing {
+  border-radius: 0 12px 12px 0 !important; /* Bo góc phải trên và phải dưới */
+  border-left: none !important; /* Xóa vạch dọc ở giữa */
+  border-color: #e5e7eb !important;
+}
+
+/* 4. KHI CÓ LỖI (INVALID): Đổi tất cả sang màu đỏ */
+::ng-deep .custom-mat-input.mat-form-field-invalid .mdc-notched-outline__leading,
+::ng-deep .custom-mat-input.mat-form-field-invalid .mdc-notched-outline__notch,
+::ng-deep .custom-mat-input.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: #ef4444 !important;
+}
+
+/* 5. KHI FOCUS (VIỀN XANH) */
+::ng-deep .custom-mat-input.mat-focused:not(.mat-form-field-invalid) .mdc-notched-outline__leading,
+::ng-deep .custom-mat-input.mat-focused:not(.mat-form-field-invalid) .mdc-notched-outline__notch,
+::ng-deep .custom-mat-input.mat-focused:not(.mat-form-field-invalid) .mdc-notched-outline__trailing {
+  border-color: #2ac2d5 !important;
+  border-width: 2px !important;
+}
+
+/* 6. ĐỘ LÙI CHỮ (PADDING) */
+::ng-deep .custom-mat-input .mat-mdc-form-field-infix {
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  border-top: none !important;
+}
+
+/* 7. CHỮ BÁO LỖI */
+::ng-deep .custom-mat-input .mat-mdc-form-field-error {
+  color: #ef4444 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-top: 6px !important;
+  display: block !important;
+}
+
+/* 8. DỌN DẸP KHOẢNG TRỐNG */
+::ng-deep .custom-mat-input .mat-mdc-form-field-subscript-wrapper {
+  padding: 0 !important;
+}
+
+/* Định nghĩa hiệu ứng xoay */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Áp dụng vào class animate-slow-spin */
+.animate-slow-spin {
+  animation: spin-slow 25s linear infinite; /* Xoay chậm trong 25 giây */
+  transform-origin: center; /* Xoay quanh tâm */
+  filter: blur(1px); /* Làm mờ nhẹ các đốm sáng cho tinh tế */
+}

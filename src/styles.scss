@@ -1,0 +1,60 @@
+/* --- CẤU HÌNH GLOBAL --- */
+.cdk-overlay-container {
+  z-index: 9999 !important;
+}
+
+/* --- ALERT THÀNH CÔNG (SUCCESS) --- */
+.success-snackbar.mat-mdc-snack-bar-container {
+  /* Bo góc lớp vỏ ngoài cùng */
+  --mdc-snackbar-container-shape: 16px;
+}
+
+.success-snackbar .mdc-snackbar__surface {
+  background-color: #059669 !important; /* Xanh lá đậm */
+  border-radius: 16px !important;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3) !important;
+  padding: 4px 8px !important;
+}
+
+/* Màu chữ nội dung */
+.success-snackbar .mdc-snackbar__label {
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+/* Nút Đóng - Trạng thái bình thường */
+.success-snackbar .mat-mdc-snack-bar-action button {
+  background-color: transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action .mdc-button__label {
+  color: #fde047 !important; /* Chuyển chữ nút Đóng sang màu Vàng cho nhẹ nhàng, không bị đỏ chét */
+}
+
+/* Nút Đóng - Khi Hover (Lia chuột vào) */
+.success-snackbar .mat-mdc-snack-bar-action button:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important; /* Nền trắng mờ nhẹ cho sang */
+  border-radius: 8px !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action button:hover .mdc-button__label {
+  color: white !important; /* Khi hover chữ đổi sang trắng cho dịu mắt */
+  text-decoration: underline;
+}
+
+/* --- ALERT LỖI (ERROR) --- */
+.error-snackbar .mdc-snackbar__surface {
+  background-color: #dc2626 !important; /* Đỏ Rose */
+  border-radius: 16px !important;
+  box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.3) !important;
+}
+
+.error-snackbar .mdc-snackbar__label {
+  color: white !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-action .mdc-button__label {
+  color: #ffedd5 !important; /* Màu cam nhạt cho nút đóng bên Alert lỗi */
+}
+

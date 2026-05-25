@@ -1,0 +1,177 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+  <div
+    class="flex flex-col md:flex-row w-full max-w-[700px] min-h-[700px] bg-white rounded-[25px] shadow-2xl overflow-hidden"
+  >
+    <div
+      class="hidden md:flex flex-col w-[43%] items-center justify-center text-white p-10 relative overflow-hidden"
+      style="background: linear-gradient(to bottom, #2ac2d5, #2ab1d7)"
+    >
+      <svg
+        class="absolute inset-0 w-full h-full pointer-events-none animate-slow-spin"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.15)" />
+        <circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)" />
+        <circle cx="50" cy="85" r="1.5" fill="rgba(255,255,255,0.12)" />
+        <circle cx="15" cy="70" r="1" fill="rgba(255,255,255,0.08)" />
+      </svg>
+
+      <div class="text-center relative z-10">
+        <div class="mb-3 text-center mx-auto">
+          <img src="assets/logo-short-white.svg" alt="Uplizd Logo" class="w-20 mx-auto mb-6" />
+        </div>
+        <h1 class="text-3xl font-bold text-white tracking-wider">Uplizd</h1>
+      </div>
+    </div>
+
+    <div class="w-full md:w-[57%] flex items-center justify-center p-8 sm:p-12">
+      <div class="w-full max-w-[420px]">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900">
+            <span class="text-[#2ac2d5]">Sign in</span> to your account
+          </h2>
+          <p class="text-gray-500 text-sm font-medium">Welcome back! Please enter your details</p>
+        </div>
+
+        <form [formGroup]="form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-bold text-gray-800 mb-1">Email *</label>
+            <mat-form-field
+              appearance="outline"
+              class="w-full custom-mat-input"
+              subscriptSizing="dynamic"
+            >
+              <input matInput type="username" formControlName="username" placeholder="Enter your username" />
+              <mat-error *ngIf="form.get('username')?.hasError('required')">
+                Username is required
+              </mat-error>
+              <!-- <mat-error *ngIf="form.get('username')?.hasError('email')">
+                Invalid email address
+              </mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-gray-800 mb-1">Password *</label>
+            <mat-form-field
+              appearance="outline"
+              class="w-full custom-mat-input"
+              subscriptSizing="dynamic"
+            >
+              <input
+                matInput
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                class="text-gray-500"
+              >
+                <mat-icon style="font-size: 20px">{{
+                  showPassword ? 'visibility' : 'visibility_off'
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="form.get('password')?.hasError('weakPassword')">
+                {{ form.get('password')?.getError('weakPassword') }}
+              </mat-error>
+
+              <mat-error *ngIf="form.get('password')?.hasError('longPassword')">
+                {{ form.get('password')?.getError('longPassword') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <form #loginForm="ngForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-bold text-gray-800 mb-1">Email *</label>
+            <mat-form-field
+              appearance="outline"
+              class="w-full custom-mat-input"
+              subscriptSizing="dynamic"
+            >
+              <input
+                matInput
+                type="email"
+                [(ngModel)]="email"
+                name="email"
+                #emailModel="ngModel"
+                placeholder="Enter your email"
+                required
+                email
+              />
+              <mat-error *ngIf="emailModel.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="emailModel.hasError('email')">Invalid email address</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-gray-800 mb-1">Password *</label>
+            <mat-form-field
+              appearance="outline"
+              class="w-full custom-mat-input"
+              subscriptSizing="dynamic"
+            >
+              <input
+                matInput
+                [type]="showPassword ? 'text' : 'password'"
+                [(ngModel)]="password"
+                name="password"
+                #passModel="ngModel"
+                required
+              />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                class="text-gray-500"
+              >
+                <mat-icon style="font-size: 20px">{{
+                  showPassword ? 'visibility' : 'visibility_off'
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="passModel.hasError('required')">Password is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="text-left">
+            <a
+              href="#"
+              class="text-xs font-bold text-gray-800 hover:text-[#2ac2d5] transition-colors"
+              >Forgot password?</a
+            >
+          </div> -->
+
+          <div class="pt-2">
+            <button
+              mat-flat-button
+              type="button"
+              (click)="onLogin()"
+              [disabled]="form.invalid"
+              class="w-full py-7 rounded-xl font-bold text-white text-base flex justify-center items-center gap-2 transition-all"
+              [style.background-color]="form.invalid ? '#d1d5db' : '#2ac2d5'"
+            >
+              Sign in <span>&rarr;</span>
+            </button>
+          </div>
+        </form>
+
+        <app-social-login></app-social-login>
+
+        <div class="text-center mt-8">
+          <a
+            routerLink="/auth/register"
+            class="text-xs font-bold text-gray-800 hover:text-[#2ac2d5] transition-colors"
+          >
+            You don't have an account?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

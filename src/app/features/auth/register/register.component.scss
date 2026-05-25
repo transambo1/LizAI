@@ -1,0 +1,50 @@
+/* Tùy chỉnh thanh cuộn cho cột phải nếu nội dung quá dài */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 10px;
+}
+
+/* Hiệu ứng khi chọn Plan */
+.card {
+  transition: all 0.2s ease;
+  border-color: #f0f0f0;
+}
+.card:hover {
+  border-color: #2ac2d5;
+}
+
+/* Toggle switch Monthly/Yearly */
+.btn-check:checked + .btn {
+  background-color: white !important;
+  color: #2ac2d5 !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.x-small {
+  font-size: 11px;
+}
+
+.list-none { list-style: none; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-3 { gap: 1rem; }
+.rounded-full { border-radius: 50px; }
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Áp dụng vào class animate-slow-spin */
+.animate-slow-spin {
+  animation: spin-slow 25s linear infinite; /* Xoay chậm trong 25 giây */
+  transform-origin: center; /* Xoay quanh tâm */
+  filter: blur(1px); /* Làm mờ nhẹ các đốm sáng cho tinh tế */
+}

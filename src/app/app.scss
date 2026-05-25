@@ -1,0 +1,72 @@
+/* login-screen.component.scss */
+
+// Định nghĩa màu Cyan chuẩn từ ảnh
+$theme-cyan: #3fc8df;
+
+// Class custom cho màu nền và màu chữ
+.bg-cyan {
+  background-color: $theme-cyan !important;
+}
+h2.fs-1 {
+  font-size: 2.8rem !important; // Tiêu đề form
+  line-height: 1.2;
+}
+.text-cyan {
+  color: $theme-cyan !important;
+}
+
+// Giả lập Logo trắng
+.bi-square-fill {
+  color: #fff;
+  opacity: 0.9;
+}
+
+// Tinh chỉnh Input
+.form-control-lg {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: #c0ccda;
+  }
+}
+
+// Custom lỗi input border màu đỏ
+.form-control.is-invalid {
+  border-color: #f87171 !important;
+}
+
+// Đường gạch ngang "Hoặc tiếp tục với"
+.separator {
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 110px); // Căn chỉnh độ dài đường gạch
+    height: 2px;
+    background-color: #e2e8f0;
+  }
+  &::before { left: 0; }
+  &::after { right: 0; }
+  span {
+    background-color: #fff;
+    padding: 0 10px;
+  }
+}
+
+// Tinh chỉnh nút social login
+.btn-outline-secondary {
+  border-color: #e2e8f0;
+  color: #1f2937;
+  font-weight: 600;
+  &:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+    color: #1f2937;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer ;
+}
+

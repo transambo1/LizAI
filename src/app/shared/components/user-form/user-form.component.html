@@ -1,0 +1,51 @@
+<h2 mat-dialog-title class="!font-bold !text-2xl !text-slate-800">
+  {{ data.user ? 'Chỉnh sửa User' : 'Thêm User mới' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="userForm" class="grid grid-cols-1 gap-4 mt-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Tên người dùng</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Ví dụ: thanh_tran" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="thanh@example.com" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Số điện thoại</mat-label>
+      <input matInput formControlName="phone" placeholder="090..." />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Website</mat-label>
+      <input matInput formControlName="website" placeholder="lizai.vn" />
+    </mat-form-field>
+
+    <div formGroupName="company">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Công ty</mat-label>
+        <input matInput formControlName="name" placeholder="Tên công ty..." />
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="!pb-6 !pr-6">
+  <button mat-button (click)="dialogRef.close()">Hủy</button>
+  <button
+    mat-raised-button
+    class="!bg-[#2ac2d5] !text-white"
+    (click)="onSave()"
+    [disabled]="userForm.invalid"
+  >
+    Lưu lại
+  </button>
+</mat-dialog-actions>
