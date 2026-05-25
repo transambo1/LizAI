@@ -4,12 +4,13 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { enviroment } from '../../../enviroments/enviroment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+  private apiUrl = `${enviroment.apiUrl}/users`;
 
   private usersSubject$ = new BehaviorSubject<any[]>([]);
   public users$ = this.usersSubject$.asObservable();

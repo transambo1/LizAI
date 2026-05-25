@@ -13,7 +13,7 @@ export class AlertService {
     return (source: Observable<T>) => source.pipe(
       tap(() => this.success(`${actionName} thành công!`)),
       catchError((err) => {
-        this.error(`${actionName} thất bại, thử lại nhé Thành!`);
+        this.error(`${actionName} thất bại, thử lại nhé!`);
         return throwError(() => err);
       })
     );

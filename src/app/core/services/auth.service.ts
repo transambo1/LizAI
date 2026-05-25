@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { enviroment } from '../../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = ' https://dummyjson.com/auth/login';
+  private apiUrl = `${enviroment.apiUrl}/auth/login`;
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -30,12 +31,10 @@ export class AuthService {
 
     this.currentUserSubject.next(user);
   }
-  
+
   logout() {
-  
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-
   }
 
   isLoggedIn(): boolean {
