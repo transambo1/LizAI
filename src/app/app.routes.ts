@@ -4,20 +4,19 @@ import { authGuard } from './core/guards/auth.guard';
 import { publicGuard } from './core/guards/public.guard';
 
 export const routes: Routes = [
-  // CỤM ROUTE CHO AUTH (LAZY LOADING)
   {
     path: 'auth',
     canActivate: [publicGuard],
     children: [
       {
         path: 'login',
-        loadComponent: () => 
-          import('./features/auth/login/login.component').then(m => m.LoginComponent),
+        loadComponent: () =>
+          import('./features/auth/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'register',
-        loadComponent: () => 
-          import('./features/auth/register/register.component').then(m => m.RegisterComponent),
+        loadComponent: () =>
+          import('./features/auth/register/register.component').then((m) => m.RegisterComponent),
       },
     ],
   },
@@ -30,13 +29,29 @@ export const routes: Routes = [
     children: [
       {
         path: 'users',
-        loadComponent: () => 
-          import('./features/user-management/user-list/user-list.component').then(m => m.UserListComponent),
+        loadComponent: () =>
+          import('./features/user-management/user-list/user-list.component').then(
+            (m) => m.UserListComponent,
+          ),
       },
       {
         path: 'users/:id',
-        loadComponent: () => 
-          import('./features/user-management/user-detail/user-detail.component').then(m => m.UserDetailComponent),
+        loadComponent: () =>
+          import('./features/user-management/user-detail/user-detail.component').then(
+            (m) => m.UserDetailComponent,
+          ),
+      },
+      {
+        path: 'posts',
+        loadComponent: () =>
+          import('./features/post/post-list/post-list.component').then((m) => m.PostListComponent),
+      },
+      {
+        path: 'posts/:id',
+        loadComponent: () =>
+          import('./features/post/post-detail/post-detail.component').then(
+            (m) => m.PostDetailComponent,
+          ),
       },
     ],
   },
@@ -45,8 +60,10 @@ export const routes: Routes = [
   {
     path: 'user',
     canActivate: [authGuard],
-    loadComponent: () => 
-      import('./features/user-management/user-overview/user-overview.component').then(m => m.UserOverviewComponent),
+    loadComponent: () =>
+      import('./features/user-management/user-overview/user-overview.component').then(
+        (m) => m.UserOverviewComponent,
+      ),
   },
 
   // REDIRECT & WILDCARD

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { UserService } from '../../../core/services/user.service';
-import { AuthService } from '../../../core/services/auth.service.js';
+import { AuthService } from '../../../core/services/auth.service';
 import { SocialLoginComponent } from '../../../shared/components/social-link';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +22,6 @@ import { customValidator } from '../../../core/validators/custom-valid';
   imports: [
     RouterLink,
     FormsModule,
-    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -32,22 +31,18 @@ import { customValidator } from '../../../core/validators/custom-valid';
   ],
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  errorMessage: string = '';
-  showPassword = false; // Thêm biến này để toggle mắt
-  image: string = 'public/logo-short-white.svg';
-  isLogin: any;
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  constructor(
-    private userService: UserService,
-    private authService: AuthService,
-    private router: Router,
-  
-  ) {}
+  username = '';
+  password = '';
+  errorMessage = '';
+  showPassword = false;
+  image = 'public/logo-short-white.svg';
 
   form = new FormGroup({
-   username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, customValidator.passwordRange]),
   });
   togglePasswordVisibility() {
@@ -65,9 +60,9 @@ export class LoginComponent {
         console.log('Login successful:', user);
         this.router.navigate(['/admin/users']);
       },
-      error: (err) => {
-        this.errorMessage = 'Sai tài khoản hoặc mật khẩu!';
-        console.error(err);
+      error: (err: unknown) => {
+        console.error('Login error:', err);
+        this.errorMessage = 'Login with wrong username or password!';
       },
     });
   }

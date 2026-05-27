@@ -1,11 +1,9 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
-import { Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, map } from 'rxjs';
 
@@ -15,23 +13,12 @@ import { switchMap, map } from 'rxjs';
   templateUrl: './user-detail.component.html',
   imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule],
 })
-export class UserDetailComponent  {
-  private authService = inject(AuthService);
+export class UserDetailComponent {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
+  private userId$ = this.route.paramMap.pipe(map((params) => params.get('id')));
 
-
-  private userId$ = this.route.paramMap.pipe(
-    map(params => params.get('id'))
-  );
-
-  user = toSignal (
-    this.userId$.pipe(
-      switchMap(id => this.userService.getUserById(id!))
-    )
-  );
-
-  
+  user = toSignal(this.userId$.pipe(switchMap((id) => this.userService.getUserById(id!))));
 
   // ngOnInit() {
   //   this.sub = this.route.paramMap

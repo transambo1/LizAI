@@ -53,9 +53,9 @@
           <app-base-table
             [data]="users()"
             [columns]="userColumns"
-            (view)="onView($event.id)"
+            (view)="onView($event)"
             (edit)="onEdit($event)"
-            (delete)="onDelete($event.id)"
+            (delete)="onDelete($event)"
           >
           </app-base-table>
         } @else {

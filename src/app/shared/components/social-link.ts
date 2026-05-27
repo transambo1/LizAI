@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-social-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
-  <div class="text-center mt-4 position-relative">
+    <div class="text-center mt-4 position-relative">
       <hr class="text-muted" />
       <span
         class="position-absolute top-50 start-50 translate-middle bg-white px-3"
@@ -44,6 +43,6 @@ import { CommonModule } from '@angular/common';
         </button>
       </div>
     </div>
-  `
+  `,
 })
 export class SocialLoginComponent {}

@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,59 +8,68 @@ import { PaginationComponent } from '../pagination/pagination.component';
 @Component({
   selector: 'app-base-table',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    PaginationComponent,
-    MatTableModule,
-  ],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, PaginationComponent],
   templateUrl: './base-table.component.html',
 })
-export class BaseTableComponent {
-  private _data = signal<any[]>([]);
-  @Input() set data(value: any[]) {
+export class BaseTableComponent<T> {
+  private _data = signal<T[]>([]);
+
+  @Input() set data(value: T[] | null | undefined) {
     this._data.set(value || []);
-    this.currentPage.set(1);
+    if (!this.isServerSide) {
+      this.currentPage.set(1);
+    }
   }
+  @Input() isServerSide = false;
+  @Input() totalItems = 0;
   @Input() columns: TableColumn[] = [];
 
-  @Output() view = new EventEmitter<any>();
-  @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
+  @Output() view = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<T>();
+  @Output() delete = new EventEmitter<number>();
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
 
-  pageSize = signal(5);
+  pageSize = signal(10);
   currentPage = signal(1);
 
-  // 1. Dùng cái _data() signal để tính, đảm bảo data đổi là nó nhảy theo ngay
   paginatedData = computed(() => {
+    if (this.isServerSide) return this._data();
     const start = (this.currentPage() - 1) * this.pageSize();
     const end = start + this.pageSize();
     return this._data().slice(start, end);
   });
 
   totalPages = computed(() => {
-    const total = Math.ceil(this._data().length / this.pageSize());
-    return total > 0 ? total : 1;
+    const total = this.isServerSide ? this.totalItems : this._data().length;
+    const pages = Math.ceil(total / this.pageSize());
+    return pages > 0 ? pages : 1;
   });
 
   onSizeChange(newSize: number) {
-    this.pageSize.set(newSize);
-    this.currentPage.set(1); // Reset về trang 1 khi đổi số lượng hiển thị
+    if (this.pageSize() !== Number(newSize)) {
+      this.pageSize.set(Number(newSize));
+      this.currentPage.set(1);
+      this.pageSizeChange.emit(newSize);
+    }
   }
 
-    onPageChange(page: number) {
+  onPageChange(page: number) {
     this.currentPage.set(page);
+    this.pageChange.emit(page);
   }
-
 
   get displayedColumns(): string[] {
     return this.columns.map((col) => col.key);
   }
 
-  getCellValue(element: any, key: string) {
-    if (!key.includes('.')) return element[key];
-    return key.split('.').reduce((obj, k) => obj?.[k], element);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getCellValue(element: T, key: string): any {
+    if (!key.includes('.')) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (element as any)[key];
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return key.split('.').reduce((obj, k) => (obj as any)?.[k], element);
   }
 }

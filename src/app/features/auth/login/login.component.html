@@ -36,24 +36,29 @@
 
         <form [formGroup]="form" class="space-y-4">
           <div>
-            <label class="block text-sm font-bold text-gray-800 mb-1">Email *</label>
+            <span class="block text-sm font-bold text-gray-800 mb-1">Email *</span>
             <mat-form-field
               appearance="outline"
               class="w-full custom-mat-input"
               subscriptSizing="dynamic"
             >
-              <input matInput type="username" formControlName="username" placeholder="Enter your username" />
-              <mat-error *ngIf="form.get('username')?.hasError('required')">
-                Username is required
-              </mat-error>
+              <input
+                matInput
+                type="username"
+                formControlName="username"
+                placeholder="Enter your username"
+              />
+              @if (form.get('username')?.hasError('required')) {
+                <mat-error> Username is required </mat-error>
+              }
               <!-- <mat-error *ngIf="form.get('username')?.hasError('email')">
-                Invalid email address
-              </mat-error> -->
+              Invalid email address
+            </mat-error> -->
             </mat-form-field>
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-gray-800 mb-1">Password *</label>
+            <span class="block text-sm font-bold text-gray-800 mb-1">Password *</span>
             <mat-form-field
               appearance="outline"
               class="w-full custom-mat-input"
@@ -76,74 +81,78 @@
                   showPassword ? 'visibility' : 'visibility_off'
                 }}</mat-icon>
               </button>
-              <mat-error *ngIf="form.get('password')?.hasError('weakPassword')">
-                {{ form.get('password')?.getError('weakPassword') }}
-              </mat-error>
+              @if (form.get('password')?.hasError('weakPassword')) {
+                <mat-error>
+                  {{ form.get('password')?.getError('weakPassword') }}
+                </mat-error>
+              }
 
-              <mat-error *ngIf="form.get('password')?.hasError('longPassword')">
-                {{ form.get('password')?.getError('longPassword') }}
-              </mat-error>
+              @if (form.get('password')?.hasError('longPassword')) {
+                <mat-error>
+                  {{ form.get('password')?.getError('longPassword') }}
+                </mat-error>
+              }
             </mat-form-field>
           </div>
 
           <!-- <form #loginForm="ngForm" class="space-y-4">
-          <div>
-            <label class="block text-sm font-bold text-gray-800 mb-1">Email *</label>
-            <mat-form-field
-              appearance="outline"
-              class="w-full custom-mat-input"
-              subscriptSizing="dynamic"
+        <div>
+          <label class="block text-sm font-bold text-gray-800 mb-1">Email *</label>
+          <mat-form-field
+            appearance="outline"
+            class="w-full custom-mat-input"
+            subscriptSizing="dynamic"
             >
-              <input
-                matInput
-                type="email"
-                [(ngModel)]="email"
-                name="email"
-                #emailModel="ngModel"
-                placeholder="Enter your email"
-                required
-                email
+            <input
+              matInput
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              #emailModel="ngModel"
+              placeholder="Enter your email"
+              required
+              email
               />
-              <mat-error *ngIf="emailModel.hasError('required')">Email is required</mat-error>
-              <mat-error *ngIf="emailModel.hasError('email')">Invalid email address</mat-error>
-            </mat-form-field>
-          </div>
+            <mat-error *ngIf="emailModel.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="emailModel.hasError('email')">Invalid email address</mat-error>
+          </mat-form-field>
+        </div>
 
-          <div>
-            <label class="block text-sm font-bold text-gray-800 mb-1">Password *</label>
-            <mat-form-field
-              appearance="outline"
-              class="w-full custom-mat-input"
-              subscriptSizing="dynamic"
+        <div>
+          <label class="block text-sm font-bold text-gray-800 mb-1">Password *</label>
+          <mat-form-field
+            appearance="outline"
+            class="w-full custom-mat-input"
+            subscriptSizing="dynamic"
             >
-              <input
-                matInput
-                [type]="showPassword ? 'text' : 'password'"
-                [(ngModel)]="password"
-                name="password"
-                #passModel="ngModel"
-                required
+            <input
+              matInput
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              #passModel="ngModel"
+              required
               />
-              <button
-                type="button"
-                mat-icon-button
-                matSuffix
-                (click)="togglePasswordVisibility()"
-                class="text-gray-500"
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="togglePasswordVisibility()"
+              class="text-gray-500"
               >
-                <mat-icon style="font-size: 20px">{{
-                  showPassword ? 'visibility' : 'visibility_off'
-                }}</mat-icon>
-              </button>
-              <mat-error *ngIf="passModel.hasError('required')">Password is required</mat-error>
-            </mat-form-field>
-          </div>
+              <mat-icon style="font-size: 20px">{{
+                showPassword ? 'visibility' : 'visibility_off'
+              }}</mat-icon>
+            </button>
+            <mat-error *ngIf="passModel.hasError('required')">Password is required</mat-error>
+          </mat-form-field>
+        </div>
 
-          <div class="text-left">
-            <a
-              href="#"
-              class="text-xs font-bold text-gray-800 hover:text-[#2ac2d5] transition-colors"
-              >Forgot password?</a
+        <div class="text-left">
+          <a
+            href="#"
+            class="text-xs font-bold text-gray-800 hover:text-[#2ac2d5] transition-colors"
+            >Forgot password?</a
             >
           </div> -->
 

@@ -1,53 +1,64 @@
 <div class="flex h-screen bg-gray-50 font-sans">
-  
   <!-- SIDEBAR (Cột bên trái) -->
   <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
     <!-- Logo -->
     <div class="h-16 flex items-center px-6 border-b border-gray-100">
-     
       <span class="text-xl font-bold text-slate-800">Uplizd Admin</span>
     </div>
 
     <!-- Menu Items -->
     <nav class="flex-1 px-4 py-6 space-y-2">
-      
-      <a routerLink="/admin/users" routerLinkActive="bg-[#f0fbfb] text-[#2ac2d5]" 
-         class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-gray-50 transition-colors">
+      <a
+        routerLink="/admin/users"
+        routerLinkActive="bg-[#f0fbfb] text-[#2ac2d5]"
+        class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-gray-50 transition-colors"
+      >
         <i class="bi bi-people me-3 fs-5"></i>
         User Management
-      </a>   
+      </a>
+      <a
+        routerLink="/admin/posts"
+        routerLinkActive="bg-[#f0fbfb] text-[#2ac2d5]"
+        class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-gray-50 transition-colors"
+      >
+        <i class="bi bi-people me-3 fs-5"></i>
+        Post Management
+      </a>
     </nav>
   </aside>
 
-  <div class="flex-1 flex flex-col overflow-hidden" *ngIf="currentUser$ | async as user">
-    
-    <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
-      <div class="text-lg font-semibold text-slate-700" >
-        Welcome back, {{ user?.firstName }} {{ user?.lastName }}! 
-      </div>
-
-      <div class="flex items-center gap-4">
-        <div class="text-right hidden md:block">
-          <div class="text-sm font-bold text-slate-800">{{ user?.firstName }} {{ user?.lastName }}</div>
-          <div class="text-[11px] font-semibold text-[#2ac2d5] bg-[#f0fbfb] px-2 py-0.5 rounded uppercase inline-block">
-            {{ user?.gender }}
-          </div>
+  @if (currentUser$ | async; as user) {
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
+        <div class="text-lg font-semibold text-slate-700">
+          Welcome back, {{ user?.firstName }} {{ user?.lastName }}!
         </div>
-        
-      
-        
-        <div class="w-px h-6 bg-gray-300 mx-2"></div>
-        
-        <!-- Nút Đăng xuất -->
-        <button (click)="onLogout()" class="text-gray-500 hover:text-red-500 transition-colors" title="Logout">
-          <i class="bi bi-box-arrow-right fs-5"></i>
-        </button>
-      </div>
-    </header>
-
-    <!-- KHU VỰC HIỂN THỊ CÁC TRANG CON -->
-    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 md:p-8">
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+        <div class="flex items-center gap-4">
+          <div class="text-right hidden md:block">
+            <div class="text-sm font-bold text-slate-800">
+              {{ user?.firstName }} {{ user?.lastName }}
+            </div>
+            <div
+              class="text-[11px] font-semibold text-[#2ac2d5] bg-[#f0fbfb] px-2 py-0.5 rounded uppercase inline-block"
+            >
+              {{ user?.gender }}
+            </div>
+          </div>
+          <div class="w-px h-6 bg-gray-300 mx-2"></div>
+          <!-- Nút Đăng xuất -->
+          <button
+            (click)="onLogout()"
+            class="text-gray-500 hover:text-red-500 transition-colors"
+            title="Logout"
+          >
+            <i class="bi bi-box-arrow-right fs-5"></i>
+          </button>
+        </div>
+      </header>
+      <!-- KHU VỰC HIỂN THỊ CÁC TRANG CON -->
+      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 md:p-8">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  }
 </div>

@@ -1,7 +1,7 @@
-import { Component, inject, TemplateRef, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, switchMap, tap, finalize } from 'rxjs/operators';
@@ -20,12 +20,13 @@ import { TableColumn } from '../../../shared/components/base-table/base-table.in
 import { BaseTableComponent } from '../../../shared/components/base-table/base-table.component';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';
 
+import { User } from '../../../core/models/user.model';
+
 @Component({
   standalone: true,
   selector: 'app-user-list',
   styleUrls: ['./user-list.component.css'],
   imports: [
-    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
@@ -50,7 +51,7 @@ export class UserListComponent implements OnInit {
     { key: 'phone', label: 'Số điện thoại' },
     { key: 'website', label: 'Website' },
     { key: 'company.name', label: 'Công ty' },
-    { key: 'actions', label: 'Thao tác', isAction: true },
+    { key: 'actions', label: 'Thao tác', isAction: true, buttons: ['view', 'edit', 'delete'] },
   ];
 
   users = toSignal(this.userService.users$, { initialValue: [] });
@@ -67,9 +68,7 @@ export class UserListComponent implements OnInit {
       tap(() => (this.isSearching = true)),
       switchMap((value) =>
         this.userService.searchUsers(value || '').pipe(
-          // Tắt Loading ngay bên trong pipe của API để đảm bảo an toàn
           finalize(() => {
-            console.log('Kết thúc Search!');
             this.isSearching = false;
             this.cdr.detectChanges();
           }),
@@ -114,7 +113,8 @@ export class UserListComponent implements OnInit {
   }
 
   // --- HÀM CHỈNH SỬA ---
-  onEdit(user: any) {
+  onEdit(user: User) {
+    const userId = user.id;
     const dialogRef = this.dialog.open(UserFormComponent, {
       width: '550px',
       data: { user: user },
@@ -123,7 +123,7 @@ export class UserListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.userService
-          .updateUser(user.id, result)
+          .updateUser(userId, result)
           .pipe(this.alertService.handle('Cập nhật người dùng'))
           .subscribe();
       }

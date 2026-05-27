@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export class customValidator {
   static passwordRange(control: AbstractControl): ValidationErrors | null {
@@ -15,4 +15,3 @@ export class customValidator {
     return null;
   }
 }
-    
