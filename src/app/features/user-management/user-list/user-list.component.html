@@ -53,7 +53,7 @@
           <app-base-table
             [data]="users()"
             [columns]="userColumns"
-            (view)="onView($event)"
+            (view)="onView($event.id)"
             (edit)="onEdit($event)"
             (delete)="onDelete($event)"
           >

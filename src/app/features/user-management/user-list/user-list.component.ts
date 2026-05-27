@@ -91,7 +91,7 @@ export class UserListComponent implements OnInit {
       .subscribe();
   }
 
-  onView(userId: User) {
+  onView(userId: number) {
     this.router.navigate(['/admin/users', userId]);
   }
 
@@ -131,20 +131,26 @@ export class UserListComponent implements OnInit {
   }
 
   // --- HÀM XÓA ---
-  onDelete(userId: number) {
+  onDelete(id: number) {
+    // Nhận vào con số
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '450px',
       data: {
-        titles: 'Xoá người dùng',
-        message: `Bạn có chắc chắn muốn xoá User có ID là ${userId} không?`,
+        title: 'Xoá người dùng',
+        message: `Bạn có chắc chắn muốn xoá User có ID là ${id} không?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.userService
-          .deleteUser(userId)
-          .pipe(this.alertService.handle('Xóa người dùng'))
+          .deleteUser(id)
+          .pipe(
+            this.alertService.handle('Xóa người dùng'),
+            tap(() => {
+              this.cdr.detectChanges();
+            }),
+          )
           .subscribe();
       }
     });

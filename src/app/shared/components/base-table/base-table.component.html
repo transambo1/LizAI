@@ -19,7 +19,7 @@
                 </button>
               }
               @if (col.buttons?.includes('delete')) {
-                <button mat-icon-button (click)="delete.emit(element)">
+                <button mat-icon-button (click)="delete.emit(element.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               }
