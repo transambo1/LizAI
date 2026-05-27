@@ -91,7 +91,7 @@ export class UserListComponent implements OnInit {
       .subscribe();
   }
 
-  onView(userId: string) {
+  onView(userId: User) {
     this.router.navigate(['/admin/users', userId]);
   }
 

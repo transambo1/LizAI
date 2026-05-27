@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 export class AuthService {
   private api = inject(ApiService);
 
-  private currentUserSubject = new BehaviorSubject<User>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor() {

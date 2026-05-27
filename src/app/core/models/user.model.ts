@@ -4,6 +4,9 @@ export interface User {
   username?: string;
   email: string;
   phone?: string;
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
   website?: string;
   company?: {
     name: string;

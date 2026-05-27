@@ -53,7 +53,8 @@ export class UserService {
     const updatedUsers = previousUsers.filter((u) => u.id !== id);
     this.usersSubject$.next(updatedUsers);
 
-    const request$ = id > 10 ? of({}) : this.api.delete<User>(`${this.jsonUrl}/users/${id}`);
+    const request$ =
+      id > 10 ? of({} as User) : this.api.delete<User>(`${this.jsonUrl}/users/${id}`);
     return request$.pipe(
       catchError((error) => {
         this.usersSubject$.next(previousUsers);

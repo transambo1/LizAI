@@ -17,22 +17,22 @@
       <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
         <div class="flex items-center gap-2 mb-4">
           <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full"
-            >Blog Post #{{ post().id }}</span
+            >Blog Post #{{ post()?.id }}</span
           >
           <div class="ml-auto flex flex-col items-end text-right">
-            <span class="text-slate-400 text-sm italic">Tác giả ID: {{ post().userId }}</span>
+            <span class="text-slate-400 text-sm italic">Tác giả ID: {{ post()?.userId }}</span>
             <span class="text-lg font-black text-slate-800 leading-tight"
-              >Tác giả: {{ post().authorName }}</span
+              >Tác giả: {{ post()?.authorName }}</span
             >
           </div>
         </div>
         <h1 class="text-4xl font-black text-slate-800 mb-6 leading-tight">
-          {{ post().title | titlecase }}
+          {{ post()?.title | titlecase }}
         </h1>
         <p
           class="text-xl text-slate-600 leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left"
         >
-          {{ post().body }}
+          {{ post()?.body }}
         </p>
       </div>
       <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200">

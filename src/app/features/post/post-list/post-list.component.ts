@@ -1,12 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseTableComponent } from '../../../shared/components/base-table/base-table.component';
 import { PostService } from '../../../core/services/post.service';
-
+import { Post } from '../../../core/models/post.model';
 @Component({
   selector: 'app-post-list',
   standalone: true,
@@ -17,7 +16,7 @@ export class PostListComponent implements OnInit {
   private postService = inject(PostService);
   private router = inject(Router);
 
-  posts = signal<string[]>([]);
+  posts = signal<Post[]>([]);
   isLoading = signal(true);
 
   postColumns = [
@@ -47,7 +46,7 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  onView(post: string) {
+  onView(post: Post) {
     this.router.navigate(['/admin/posts', post.id]);
   }
 

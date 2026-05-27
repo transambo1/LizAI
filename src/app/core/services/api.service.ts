@@ -22,7 +22,7 @@ export class ApiService {
   private snackBar = inject(MatSnackBar);
 
   private buildUrl(endpoint: string): string {
-    if (endpoint.startsWith('https://')) {
+    if (endpoint.startsWith('https://') || endpoint.startsWith('http://')) {
       return endpoint;
     }
     return `${this.baseUrl}/${endpoint}`;

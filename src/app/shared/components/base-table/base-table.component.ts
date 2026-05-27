@@ -24,7 +24,7 @@ export class BaseTableComponent<T> {
   @Input() totalItems = 0;
   @Input() columns: TableColumn[] = [];
 
-  @Output() view = new EventEmitter<string>();
+  @Output() view = new EventEmitter<T>();
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<number>();
   @Output() pageChange = new EventEmitter<number>();
